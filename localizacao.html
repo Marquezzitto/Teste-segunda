@@ -1,21 +1,23 @@
+localização.html 
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <meta name="description" content="Encontre o Hotel Age - Localização privilegiada na Av. São Miguel, São Paulo">
     <title>Localização - Hotel Age</title>
     
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
-
     <header>
         <div>
             <img src="img/logo hotel.png" alt="Logo Hotel Age - Sua melhor hospedagem">
             <h1>Hotel Age</h1>
             <p>Conforto e Hospitalidade desde 1995</p>
         </div>
+
         <nav aria-label="Menu Principal">
             <ul>
                 <li><a href="index.html">Início</a></li>
@@ -31,63 +33,49 @@
             </ul>
         </nav>
     </header>
+
     <main>
-        <section id="localizacao-mapa">
+        <section id="mapa-localizacao">
             <h2>Nossa Localização</h2>
-            <p>Encontre-nos facilmente na Av. São Miguel. Estamos ansiosos pela sua visita!</p>
+            <p>Estamos na Rua Palmeira de Leque - Av. São Miguel, 45, Vila Robertina, São Paulo - SP, CEP: 08061-430.</p>
             
-            <iframe 
-                src="http://googleusercontent.com/maps/google.com/0" 
-                width="600" 
-                height="450" 
-                style="border:0;" 
-                allowfullscreen="" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        
-            <p style="text-align: center; font-size: 1.2rem; margin-top: 1rem;">
-                Av. São Miguel, 45, São Paulo - SP
-            </p>
+            <figure id="mapa-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.332359409831!2d-46.50295982467144!3d-23.52047817882809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5e3b018f023d%3A0xe2316e098e9da684!2sAv.%20S%C3%A3o%20Miguel%2C%2045%20-%20Vila%20Robertina%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2008061-430!5e0!3m2!1spt-BR!2sbr!4v1730586937554!5m2!1spt-BR!2sbr" 
+                    width="800" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                <figcaption>Mapa de localização do Hotel Age</figcaption>
+            </figure>
         </section>
 
-        <section id="info-contato">
-            <h3>Canais de Atendimento e Endereço</h3>
+        <section id="como-chegar">
+            <h3>Como Chegar</h3>
             <dl>
-                <dt>Endereço:</dt>
-                <dd><address>Rua Palmeira de Leque - Av. São Miguel, 45 Vila Robertina, São Paulo - SP, CEP: 08061-430</address></dd>
-                <dt>Reservas e Informações:</dt>
-                <dd><a href="tel:+5511945544267">(11) 94554-4267</a> (Atendimento 24h)</dd>
-                <dt>E-mail Geral:</dt>
-                <dd><a href="mailto:contato@hotelage.com">contato@hotelage.com</a></dd>
+                <dt>De Carro:</dt>
+                <dd>Fácil acesso pela Rod. Ayrton Senna e Av. São Miguel.</dd>
+                
+                <dt>De Transporte Público:</dt>
+                <dd>Próximo à estação CPTM São Miguel Paulista e diversas linhas de ônibus.</dd>
+                
+                <dt>Do Aeroporto (GRU):</dt>
+                <dd>Aproximadamente 20 minutos de carro.</dd>
             </dl>
         </section>
     </main>
+
     <footer>
         <div>
             <section>
-                <h3>Sobre o Hotel Age</h3>
-                <p>Desde 1995 oferecendo a melhor experiência em hospitalidade.</p>
-            </section>
-
-            <section>
-                <h3>Links Rápidos</h3>
-                <nav aria-label="Links do Rodapé">
-                    <ul>
-                        <li><a href="sobre.html">Sobre Nós</a></li>
-                        <li><a href="quartos.html">Acomodações</a></li>
-                        <li><a href="servicos.html">Serviços</a></li>
-                        <li><a href="contato.html">Contato</a></li>
-                    </ul>
-                </nav>
-            </section>
-
-            <section>
                 <h3>Contato</h3>
                 <address>
-                    <p>Rua Palmeira de Leque, Av. São Miguel, 45</p>
-                    <p>São Paulo - SP, 08061-430</p>
-                    <p>Tel: <a href="tel:+5511945544267">(11) 94554-4267</a></p>
+                    <p>Rua Palmeira de Leque - Av. São Miguel, 45</p>
+                    <p>Vila Robertina, São Paulo - SP, CEP: 08061-430</p>
+                    <p>Tel: <a href="tel:+551129564153">(11) 2956-4153</a></p>
                 </address>
             </section>
         </div>
@@ -96,7 +84,5 @@
             <p>© 2024 Hotel Age. Todos os direitos reservados.</p>
         </div>
     </footer>
-    <script src="js/script.js"></script>
-
 </body>
 </html>
