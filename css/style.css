@@ -1,346 +1,284 @@
-/* ===================================
-   HOTEL AGE - ESTILOS PRINCIPAIS
-   =================================== */
+/* --- 
+   Arquivo: style.css
+   Projeto: Hotel Age (Unificado)
+--- */
 
-/* Reset e Configurações Gerais */
+/* --- Estilos Gerais --- */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    --primary-color: #0056b3;
-    --secondary-color: #FFC300;
-    --dark-blue: #003d82;
-    --light-gray: #f4f4f4;
-    --dark-gray: #333;
-    --white: #ffffff;
-    --text-color: #333;
-    --border-radius: 8px;
-    --transition: all 0.3s ease;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
+h1 { font-size: 32px; }
+h2 { font-size: 28px; }
+h3 { font-size: 22px; }
+h4 { font-size: 18px; }
+
+h2, h3, h4 {
+  margin-bottom: 16px;
+  color: #003366;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
-    transition: var(--transition);
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+  margin: 32px 0;
 }
 
-/* ===================================
-   HEADER E NAVEGAÇÃO
-   =================================== */
-
+/* --- Cabeçalho e Navegação --- */
 header {
-    background: linear-gradient(135deg, var(--primary-color), var(--dark-blue));
-    color: var(--white);
-    padding: 1rem 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+  background-color: #003366;
+  color: #ffffff;
+  padding: 16px 0;
+  text-align: center;
 }
-
-header > div:first-child {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+header img { 
+  max-width: 100px; 
 }
-
-header img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 3px solid var(--secondary-color);
+header h1 { 
+  margin-bottom: 8px; 
 }
-
-header h1 {
-    font-size: 2rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-header > div:first-child > p {
-    font-size: 0.9rem;
-    font-style: italic;
-    opacity: 0.9;
-}
-
-/* Navegação */
-nav {
-    background-color: rgba(0, 0, 0, 0.2);
-    margin-top: 1rem;
+header p { 
+  font-style: italic; 
+  font-size: 14px;
 }
 
 nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
+  list-style-type: none;
+  background-color: #002244;
+  text-align: center;
 }
-
-nav li {
-    margin: 0;
+nav li { 
+  display: inline-block; 
 }
-
 nav a {
-    display: block;
-    padding: 1rem 1.5rem;
-    color: var(--white);
-    font-weight: 500;
-    transition: var(--transition);
-    position: relative;
+  display: block;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 16px 24px;
 }
-
-nav a:hover,
+nav a:hover { 
+  background-color: #0055aA; 
+}
 nav a[aria-current="page"] {
-    background-color: var(--secondary-color);
-    color: var(--dark-blue);
+  background-color: #0077cc;
+  font-weight: bold;
 }
 
-nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 3px;
-    background-color: var(--secondary-color);
-    transition: var(--transition);
-    transform: translateX(-50%);
-}
-
-nav a:hover::after {
-    width: 80%;
-}
-
-/* ===================================
-   CAROUSEL / BANNER PRINCIPAL
-   =================================== */
-
-#hero {
-    position: relative;
-    overflow: hidden;
-    background-color: var(--dark-gray);
-    min-height: 500px;
-}
-
-.carousel-container {
-    position: relative;
-    width: 100%;
-    height: 500px;
-    overflow: hidden;
-}
-
-.carousel-slide {
-    display: none;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    animation: fadeIn 0.8s ease-in-out;
-}
-
-.carousel-slide.active {
-    display: block;
-}
-
-.carousel-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.carousel-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: var(--white);
-    background: rgba(0, 0, 0, 0.6);
-    padding: 2rem 3rem;
-    border-radius: var(--border-radius);
-    backdrop-filter: blur(5px);
-}
-
-.carousel-content h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.carousel-content p {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-}
-
-/* Controles do Carousel */
-.carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: var(--white);
-    border: none;
-    padding: 1rem;
-    cursor: pointer;
-    font-size: 2rem;
-    transition: var(--transition);
-    z-index: 10;
-}
-
-.carousel-btn:hover {
-    background-color: var(--secondary-color);
-    color: var(--dark-blue);
-}
-
-.carousel-btn.prev {
-    left: 1rem;
-}
-
-.carousel-btn.next {
-    right: 1rem;
-}
-
-/* Indicadores do Carousel */
-.carousel-indicators {
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 0.5rem;
-    z-index: 10;
-}
-
-.indicator {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.5);
-    border: 2px solid var(--white);
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.indicator.active {
-    background-color: var(--secondary-color);
-    transform: scale(1.2);
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-/* ===================================
-   MAIN CONTENT
-   =================================== */
-
+/* --- Conteúdo Principal (Main) --- */
 main {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 2rem;
+  max-width: 960px;
+  margin: 32px auto;
+  padding: 16px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+}
+main section { 
+  margin-bottom: 32px; 
 }
 
-section {
-    margin: 3rem 0;
-    padding: 2rem;
-    background-color: var(--white);
-    border-radius: var(--border-radius);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+/* Links e Listas Padrão do Main */
+main a {
+  color: #0077cc;
+  text-decoration: none;
+}
+main a:hover {
+  text-decoration: underline;
+}
+main ul {
+  margin: 16px 0 16px 32px;
+}
+main li {
+  margin-bottom: 8px;
+}
+main dl dt {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 16px;
+  color: #333;
+}
+main dl dd {
+  margin-left: 24px;
+  margin-bottom: 8px;
+  color: #444;
 }
 
-section h2 {
-    color: var(--primary-color);
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 3px solid var(--secondary-color);
+/* --- Componentes Comuns (Figure, Botões) --- */
+figure {
+  margin: 0;
+  text-align: center;
+}
+figcaption {
+  margin-top: 8px;
+  font-size: 14px;
+  font-style: italic;
+  color: #555;
+}
+video,
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+audio {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 16px;
 }
 
-section h3 {
-    color: var(--dark-blue);
-    font-size: 1.5rem;
-    margin: 1.5rem 0 1rem;
+/* --- Estilos de "Botão" para Links --- */
+/* (Usado em Quartos, Promoções, CTA, etc.) */
+#cta-galeria a,
+#transporte a,
+#localizacao-resumo a[href="localizacao.html"],
+#link-prototipo a,
+#ofertas-ativas article a,
+#quartos article a,
+#cta a {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #003366;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-top: 16px;
+  margin-right: 8px;
+}
+#cta-galeria a:hover,
+#transporte a:hover,
+#localizacao-resumo a[href="localizacao.html"]:hover,
+#link-prototipo a:hover,
+#ofertas-ativas article a:hover,
+#quartos article a:hover,
+#cta a:hover {
+  background-color: #0055aA;
+}
+/* Botão verde especial */
+#link-prototipo a {
+    background-color: #28a745;
+}
+#link-prototipo a:hover {
+    background-color: #218838;
 }
 
-section h4 {
-    color: var(--primary-color);
-    font-size: 1.2rem;
-    margin: 1rem 0 0.5rem;
+
+/* --- Estilos de Card (Article) --- */
+/* (Usado em Guia, Promoções, Quartos, Serviços, Sobre) */
+main article {
+  background-color: #ffffff;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  border-radius: 5px;
+  margin-bottom: 32px;
+  overflow: hidden;
+}
+main article header {
+  padding: 24px 24px 8px 24px;
+}
+main article p {
+  padding: 8px 24px;
+  color: #444;
+}
+main article p:last-of-type {
+  padding-bottom: 24px;
+}
+main article img {
+  width: 100%;
 }
 
-/* ===================================
-   SELO DE QUALIDADE
-   =================================== */
 
-#selo-qualidade {
-    text-align: center;
-    background: linear-gradient(135deg, var(--light-gray), var(--white));
+/* --- Página Index --- */
+#hero {
+  text-align: center;
+  background-color: #f9f9f9;
+  padding: 32px;
+  border-radius: 5px;
+}
+#hero h2 {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+#hero p {
+  font-size: 19px;
+  color: #555;
+  margin-bottom: 32px;
+  padding: 0; /* Reseta o padding do 'main article p' */
+}
+#selo-qualidade, #certificacao {
+  text-align: center;
+  border-top: 1px solid #eee;
+  padding: 32px 0;
+}
+#selo-qualidade p, #certificacao p {
+  font-size: 14px;
+  font-style: italic;
+  color: #666;
+  max-width: 400px;
+  margin: 16px auto 0 auto;
+  padding: 0;
+}
+#destaques,
+#reserva-rapida,
+#depoimentos,
+#promocoes-destaque {
+  padding: 48px 16px;
+  background-color: #f9f9f9;
+  border: 2px dashed #ddd;
+  text-align: center;
+  color: #999;
+  font-size: 16px;
+  font-weight: bold;
+}
+#localizacao-resumo {
+  background-color: #f4f4f4;
+  padding: 32px;
+  border-radius: 5px;
+}
+#localizacao-resumo address {
+  font-style: normal;
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+#localizacao-resumo address strong {
+  display: block;
+  font-size: 19px;
+  color: #003366;
+  margin-bottom: 8px;
 }
 
-#selo-qualidade svg {
-    margin: 1rem auto;
-    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
-}
 
-/* ===================================
-   FORMULÁRIOS
-   =================================== */
-
-form {
-    background-color: var(--light-gray);
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    max-width: 800px;
-    margin: 2rem auto;
-}
-
+/* --- Páginas de Formulário (Contato / Reservas) --- */
 fieldset {
-    border: 2px solid var(--primary-color);
-    border-radius: var(--border-radius);
-    padding: 1.5rem;
-    margin: 1.5rem 0;
+  padding: 24px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 16px;
 }
-
 legend {
-    background-color: var(--primary-color);
-    color: var(--white);
-    padding: 0.5rem 1rem;
-    border-radius: var(--border-radius);
-    font-weight: bold;
+  font-weight: bold;
+  font-size: 19px;
+  padding: 0 8px;
+  color: #003366;
 }
-
+#formulario-contato div,
+#formulario-reserva div { 
+  margin-bottom: 16px; 
+}
 label {
-    display: block;
-    margin-top: 1rem;
-    font-weight: 600;
-    color: var(--dark-gray);
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
 }
-
 input[type="text"],
 input[type="email"],
 input[type="tel"],
@@ -348,490 +286,263 @@ input[type="date"],
 input[type="number"],
 select,
 textarea {
-    width: 100%;
-    padding: 0.75rem;
-    margin-top: 0.5rem;
-    border: 2px solid #ddd;
-    border-radius: var(--border-radius);
-    font-size: 1rem;
-    transition: var(--transition);
-    font-family: inherit;
+  width: 100%;
+  padding: 11px;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
-
-input:focus,
-select:focus,
-textarea:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+textarea { 
+  resize: vertical; 
 }
-
-textarea {
-    resize: vertical;
-    min-height: 120px;
-}
-
 button {
-    background-color: var(--primary-color);
-    color: var(--white);
-    padding: 1rem 2rem;
-    border: none;
-    border-radius: var(--border-radius);
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: var(--transition);
-    margin: 0.5rem;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+button[type="submit"] { background-color: #28a745; }
+button[type="submit"]:hover { background-color: #218838; }
+button[type="reset"] { background-color: #6c757d; }
+button[type="reset"]:hover { background-color: #5a6268; }
+button[type="button"] { background-color: #0077cc; }
+button[type="button"]:hover { background-color: #0055aA; }
+
+#intro-reservas div {
+    background-color: #f9f9f9;
+    padding: 16px 24px;
+    border-radius: 5px;
+}
+#intro-reservas ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+#intro-reservas li {
+    color: #333;
 }
 
-button:hover {
-    background-color: var(--dark-blue);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+/* --- Página da Galeria --- */
+#galeria-quartos div,
+#galeria-areas-comuns div,
+#galeria-restaurante div {
+  text-align: center; 
+  font-size: 0; 
+}
+#galeria-quartos figure,
+#galeria-areas-comuns figure,
+#galeria-restaurante figure {
+  display: inline-block;
+  vertical-align: top;
+  width: 400px; 
+  max-width: 100%; 
+  margin: 8px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  background: #fff;
+  font-size: 16px; 
+}
+#galeria-quartos img,
+#galeria-areas-comuns img,
+#galeria-restaurante img {
+  border-radius: 4px 4px 0 0;
+}
+#galeria-quartos figcaption,
+#galeria-areas-comuns figcaption,
+#galeria-restaurante figcaption {
+  padding: 12px;
 }
 
-button[type="reset"] {
-    background-color: #6c757d;
+#cta-galeria {
+  background-color: #f4f4f4;
+  padding: 32px;
+  border-radius: 5px;
+  text-align: center;
 }
 
-button[type="reset"]:hover {
-    background-color: #5a6268;
+/* --- Página Guia da Cidade --- */
+#pontos-turisticos article p:last-of-type {
+  font-size: 14px;
+  font-style: italic;
+  color: #555;
 }
 
-button[type="submit"] {
-    background-color: #28a745;
-}
-
-button[type="submit"]:hover {
-    background-color: #218838;
-}
-
-/* Estilos específicos para formulário de contato */
-#header-contato {
-    background: linear-gradient(135deg, var(--primary-color), var(--dark-blue));
-    color: var(--white);
+/* --- Página Localização --- */
+#mapa-container {
     text-align: center;
-    padding: 3rem 2rem;
-    border-radius: var(--border-radius);
+    margin: 24px 0;
 }
-
-#header-contato h2 {
-    color: var(--white);
-    border-bottom: 3px solid var(--secondary-color);
-    display: inline-block;
-    padding-bottom: 0.5rem;
-}
-
-#info-contato {
-    background-color: var(--light-gray);
-}
-
-#info-contato dl {
-    display: grid;
-    gap: 1.5rem;
-}
-
-#info-contato dt {
-    font-size: 1.1rem;
-    color: var(--primary-color);
-    margin-top: 0;
-}
-
-#info-contato dd {
-    margin-left: 0;
-    padding-left: 1.5rem;
-    border-left: 3px solid var(--secondary-color);
-}
-
-#info-contato a {
-    color: var(--primary-color);
-    font-weight: 600;
-}
-
-#info-contato a:hover {
-    color: var(--dark-blue);
-    text-decoration: underline;
-}
-
-#formulario-contato {
-    background-color: var(--white);
-}
-
-#formulario-contato form > div:last-child {
-    text-align: center;
-    margin-top: 2rem;
-}
-
-/* ===================================
-   CARTÕES E ARTIGOS
-   =================================== */
-
-article {
-    margin: 2rem 0;
-    padding: 2rem;
-    background-color: var(--white);
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: var(--transition);
-}
-
-article:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-}
-
-article img {
-    border-radius: var(--border-radius);
-    margin: 1rem 0;
-}
-
-article header h3,
-article header h4 {
-    color: var(--primary-color);
-}
-
-figure {
-    margin: 1.5rem 0;
-}
-
-figcaption {
-    text-align: center;
-    font-style: italic;
-    color: #666;
-    margin-top: 0.5rem;
-}
-
-/* ===================================
-   TABELAS
-   =================================== */
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 2rem 0;
-    background-color: var(--white);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-table caption {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: var(--primary-color);
-    padding: 1rem;
-    background-color: var(--light-gray);
-}
-
-th {
-    background-color: var(--primary-color);
-    color: var(--white);
-    padding: 1rem;
-    text-align: left;
-    font-weight: bold;
-}
-
-td {
-    padding: 1rem;
-    border-bottom: 1px solid #ddd;
-}
-
-tr:hover {
-    background-color: var(--light-gray);
-}
-
-/* ===================================
-   LISTAS
-   =================================== */
-
-ul, ol {
-    margin: 1rem 0;
-    padding-left: 2rem;
-}
-
-li {
-    margin: 0.5rem 0;
-    line-height: 1.8;
-}
-
-dl {
-    margin: 1rem 0;
-}
-
-dt {
-    font-weight: bold;
-    color: var(--primary-color);
-    margin-top: 1rem;
-}
-
-dd {
-    margin-left: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-/* ===================================
-   GALERIA
-   =================================== */
-
-#galeria-quartos > article > div,
-#galeria-areas-comuns > article > div,
-#galeria-restaurante > div {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin: 1.5rem 0;
-}
-
-/* ===================================
-   VÍDEO E ÁUDIO
-   =================================== */
-
-video, audio {
-    width: 100%;
-    max-width: 800px;
-    margin: 1rem auto;
-    display: block;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* ===================================
-   LOCALIZAÇÃO / IFRAME
-   =================================== */
-
-iframe {
-    width: 100%;
+#mapa-container iframe {
     max-width: 100%;
-    height: 450px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* --- Página Promoções --- */
+#ofertas-ativas article header h3 {
+    font-size: 24px;
+}
+#ofertas-ativas article ul { 
+    margin: 16px 40px; 
+}
+#ofertas-ativas del { 
+    color: #999; 
+    font-size: 16px;
+}
+#ofertas-ativas strong { 
+    color: #28a745; 
+    font-size: 22px;
+}
+#ofertas-ativas p {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 8px;
+}
+
+/* --- Página Quartos --- */
+#quartos article header p {
+    font-size: 18px; 
+    font-weight: bold; 
+    color: #333;
+    padding-top: 0;
+}
+#quartos article section {
+    padding: 16px 24px 24px 24px;
+}
+#quartos article section h4 {
+    margin-top: 16px;
+}
+#quartos article section ul { 
+    margin: 16px 0 16px 24px; 
+}
+#comparacao table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-top: 16px; 
+    font-size: 14px;
+}
+#comparacao th, #comparacao td { 
+    border: 1px solid #ccc; 
+    padding: 12px; 
+    text-align: center; 
+}
+#comparacao th { 
+    background-color: #f4f4f4; 
+    color: #003366; 
+}
+#comparacao caption { 
+    font-size: 18px; 
+    font-weight: bold; 
+    margin-bottom: 16px; 
+    caption-side: top;
+    color: #003366;
+}
+#politicas article {
     border: none;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    margin: 2rem 0;
+    box-shadow: none;
+    padding: 0;
+    margin-bottom: 16px;
 }
-
-/* Estilos específicos para página de localização */
-body > h1 {
-    color: var(--primary-color);
-    text-align: center;
-    padding: 2rem;
-    margin: 2rem auto;
-    max-width: 1200px;
+#politicas article h3 {
+    font-size: 18px;
 }
-
-body > iframe {
-    display: block;
-    margin: 0 auto;
-    max-width: 1200px;
-}
-
-body > p {
-    text-align: center;
-    font-size: 1.2rem;
-    color: var(--dark-gray);
-    margin: 2rem auto;
-    max-width: 1200px;
-    padding: 0 2rem;
-}
-
-/* ===================================
-   ENDEREÇO
-   =================================== */
-
-address {
-    font-style: normal;
-    line-height: 1.8;
-    margin: 1rem 0;
-}
-
-/* ===================================
-   LINKS E BOTÕES CTA
-   =================================== */
-
-section#cta,
-section#cta-galeria,
-section#ajuda {
-    text-align: center;
-    background: linear-gradient(135deg, var(--primary-color), var(--dark-blue));
-    color: var(--white);
-    padding: 3rem 2rem;
-}
-
-section#cta h2,
-section#cta-galeria h2 {
-    color: var(--white);
-    border-bottom: 3px solid var(--secondary-color);
-    display: inline-block;
-    padding-bottom: 0.5rem;
-}
-
-section#cta a,
-section#cta-galeria a,
-.btn-primary {
-    display: inline-block;
-    background-color: var(--secondary-color);
-    color: var(--dark-blue);
-    padding: 1rem 2rem;
-    margin: 1rem 0.5rem;
-    border-radius: var(--border-radius);
-    font-weight: bold;
-    transition: var(--transition);
-}
-
-section#cta a:hover,
-section#cta-galeria a:hover,
-.btn-primary:hover {
-    background-color: var(--white);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* ===================================
-   FOOTER
-   =================================== */
-
-footer {
-    background: linear-gradient(135deg, var(--dark-gray), #1a1a1a);
-    color: var(--white);
-    padding: 3rem 2rem 1rem;
-    margin-top: 4rem;
-}
-
-footer > div:first-child {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
-footer h3 {
-    color: var(--secondary-color);
-    margin-bottom: 1rem;
-    font-size: 1.3rem;
-}
-
-footer nav ul {
-    list-style: none;
+#politicas article p {
     padding: 0;
 }
 
-footer nav a {
-    color: var(--white);
-    display: block;
-    padding: 0.5rem 0;
-    transition: var(--transition);
+/* --- Página Serviços --- */
+#outros-servicos { 
+    text-align: center; 
+    font-size: 0; 
+}
+#outros-servicos article {
+    display: inline-block;
+    width: 300px; 
+    max-width: 100%; 
+    margin: 8px;
+    vertical-align: top;
+    font-size: 16px;
+}
+#outros-servicos article h3 {
+    font-size: 18px;
+    padding: 16px 16px 0 16px;
 }
 
-footer nav a:hover {
-    color: var(--secondary-color);
-    padding-left: 0.5rem;
+/* --- Página Sobre --- */
+#historia h4 {
+    padding: 0 24px;
+}
+#missao-visao-valores { 
+    text-align: left; 
+    font-size: 0;
+}
+#missao-visao-valores article {
+    display: inline-block;
+    width: 30%; 
+    min-width: 250px;
+    margin: 8px;
+    vertical-align: top;
+    font-size: 16px;
+    padding: 24px;
+}
+#missao-visao-valores ul {
+    list-style-type: none;
+    padding-left: 0;
 }
 
+/* --- Rodapé (Footer) --- */
+footer {
+  background-color: #003366;
+  color: #ffffff;
+  margin-top: 32px;
+  padding: 32px 0;
+}
+footer > div:first-child {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+/* Layout do Rodapé (Empilhado, simples) */
+footer > div:first-child section {
+  margin-bottom: 32px;
+}
+
+footer h3 {
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+footer p,
+footer address,
+footer a {
+  color: #eee;
+  text-decoration: none;
+  font-style: normal;
+  font-size: 14px;
+}
+footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+footer ul li {
+  margin-bottom: 8px;
+}
+footer a:hover {
+  text-decoration: underline;
+}
 footer hr {
-    margin: 2rem 0;
-    border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border: 0;
+  border-top: 1px solid #0055aA;
+  margin: 32px auto;
+  max-width: 960px;
 }
-
 footer > div:last-child {
-    text-align: center;
-    font-size: 0.9rem;
-    opacity: 0.8;
-}
-
-/* ===================================
-   RESPONSIVIDADE
-   =================================== */
-
-@media (max-width: 768px) {
-    header h1 {
-        font-size: 1.5rem;
-    }
-    
-    nav ul {
-        flex-direction: column;
-    }
-    
-    nav a {
-        padding: 0.75rem 1rem;
-    }
-    
-    .carousel-content h2 {
-        font-size: 1.8rem;
-    }
-    
-    .carousel-content p {
-        font-size: 1rem;
-    }
-    
-    .carousel-btn {
-        padding: 0.5rem;
-        font-size: 1.5rem;
-    }
-    
-    main {
-        padding: 0 1rem;
-    }
-    
-    section {
-        padding: 1.5rem;
-    }
-    
-    table {
-        font-size: 0.9rem;
-    }
-    
-    th, td {
-        padding: 0.5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .carousel-container {
-        height: 300px;
-    }
-    
-    .carousel-content {
-        padding: 1rem 1.5rem;
-    }
-    
-    .carousel-content h2 {
-        font-size: 1.3rem;
-    }
-    
-    .carousel-content p {
-        font-size: 0.9rem;
-    }
-}
-
-/* ===================================
-   ANIMAÇÕES
-   =================================== */
-
-@keyframes slideInFromLeft {
-    from {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes slideInFromRight {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-.animate-left {
-    animation: slideInFromLeft 0.8s ease-out;
-}
-
-.animate-right {
-    animation: slideInFromRight 0.8s ease-out;
+  text-align: center;
+  font-size: 14px;
+  padding: 0 16px;
 }
