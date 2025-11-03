@@ -1,162 +1,51 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Hotel Age - Conforto e Hospitalidade na Av. São Miguel, São Paulo">
-    <meta name="keywords" content="hotel, hospedagem, são paulo, zona leste, São Miguel Paulista">
-    <meta name="author" content="Equipe Hotel Age">
-    <title>Hotel Age - Bem-vindo ao Conforto e Luxo</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Age - Início</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
 </head>
 <body>
-    <header>
-        <div>
-            <img src="img/logo hotel.png" alt="Logo Hotel Age - Sua melhor hospedagem">
-            <h1>Hotel Age</h1>
-            <p>O Melhor Conforto e Hospitalidade de São Paulo</p>
-        </div>
-        <nav aria-label="Menu Principal">
-            <ul>
-                <li><a href="index.html" aria-current="page">Início</a></li>
-                <li><a href="quartos.html">Quartos</a></li>
-                <li><a href="reservas.html">Reservas</a></li>
-                <li><a href="servicos.html">Serviços</a></li>
-                <li><a href="galeria.html">Galeria</a></li>
-                <li><a href="sobre.html">Sobre Nós</a></li>
-                <li><a href="localizacao.html">Localização</a></li>
-                <li><a href="guia-cidade.html">Guia da Cidade</a></li>
-                <li><a href="promocoes.html">Promoções</a></li>
-                <li><a href="contato.html">Contato</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <!-- O carousel será inserido aqui dinamicamente pelo JavaScript -->
-        <section id="hero">
-            <h2>Bem-vindo ao Hotel Age</h2>
-            <p>Experimente o melhor da hospitalidade brasileira na Av. São Miguel, Zona Leste de São Paulo</p>
-        </section>
-        <section id="selo-qualidade">
-            <h2>Nosso Selo de Qualidade</h2>
-            <svg width="150" height="150" viewBox="0 0 100 100" aria-label="Selo de 5 Estrelas">
-                <title>Selo de Qualidade Hotel Age</title>
-                <circle cx="50" cy="50" r="48" fill="#FFC300" stroke="#DAA520" stroke-width="2"/>
-                <polygon points="50,10 60,40 90,40 65,60 75,90 50,75 25,90 35,60 10,40 40,40" fill="white"/>
-                <text x="50" y="55" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="#000000" font-weight="bold">TOP</text>
-            </svg>
-            <p>Certificação máxima de satisfação do hóspede e segurança hoteleira.</p>
-        </section>
-        <section id="destaques">
-            <h2>Por Que Escolher o Hotel Age?</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
-                <article>
-                    <h3>🏆 Excelência em Atendimento</h3>
-                    <p>Equipe treinada e dedicada para proporcionar a melhor experiência aos nossos hóspedes.</p>
-                </article>
-                <article>
-                    <h3>📍 Localização Privilegiada</h3>
-                    <p>Na Av. São Miguel, com fácil acesso às principais vias da Zona Leste.</p>
-                </article>
-                <article>
-                    <h3>💎 Infraestrutura Completa</h3>
-                    <p>Restaurante, spa, academia, piscina e muito mais para seu conforto.</p>
-                </article>
-                <article>
-                    <h3>🔒 Segurança 24h</h3>
-                    <p>Monitoramento constante e protocolos rigorosos de segurança.</p>
-                </article>
-            </div>
-        </section>
-        <section id="reserva-rapida">
-            <h2>Reserva Rápida</h2>
-            <p>Garanta já sua hospedagem com as melhores tarifas!</p>
-            <div style="text-align: center; margin-top: 2rem;">
-                <a href="reservas.html" class="btn-primary" style="display: inline-block; background-color: #FFC300; color: #0056b3; padding: 1rem 2rem; border-radius: 8px; font-weight: bold; font-size: 1.1rem;">Fazer Reserva Agora</a>
-            </div>
-        </section>
-        <section id="depoimentos">
-            <h2>O Que Nossos Hóspedes Dizem</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
-                <article style="background-color: #f4f4f4; padding: 1.5rem; border-left: 4px solid #FFC300;">
-                    <p style="font-style: italic;">"Excelente hotel! Atendimento impecável e quartos muito confortáveis. Com certeza voltarei!"</p>
-                    <p style="margin-top: 1rem;"><strong>- Maria Silva</strong></p>
-                    <p style="color: #FFC300;">⭐⭐⭐⭐⭐</p>
-                </article>
-                <article style="background-color: #f4f4f4; padding: 1.5rem; border-left: 4px solid #FFC300;">
-                    <p style="font-style: italic;">"Localização perfeita e infraestrutura completa. O café da manhã é maravilhoso!"</p>
-                    <p style="margin-top: 1rem;"><strong>- João Santos</strong></p>
-                    <p style="color: #FFC300;">⭐⭐⭐⭐⭐</p>
-                </article>
-                <article style="background-color: #f4f4f4; padding: 1.5rem; border-left: 4px solid #FFC300;">
-                    <p style="font-style: italic;">"Melhor custo-benefício da região. Equipe super atenciosa e prestativa."</p>
-                    <p style="margin-top: 1rem;"><strong>- Ana Oliveira</strong></p>
-                    <p style="color: #FFC300;">⭐⭐⭐⭐⭐</p>
-                </article>
-            </div>
-        </section>
-        <section id="localizacao-resumo">
-            <h2>Nossa Localização</h2>
-            <p>Estamos localizados na região da Av. São Miguel, próximo a São Miguel Paulista.</p>
-            <address>
-                <strong>Hotel Age</strong><br>
-                Rua Palmeira de Leque - Av. São Miguel, 45<br>
-                Vila Robertina, São Paulo - SP<br>
-                CEP: 08061-430<br><br>
-                <strong>Telefone:</strong> <a href="tel:+551129564153">(11) 2956-4153</a><br>
-                <strong>E-mail:</strong> <a href="mailto:contato@hotelage.com">contato@hotelage.com</a>
-            </address>
-            <div style="text-align: center; margin-top: 2rem;">
-                <a href="localizacao.html" class="btn-primary">Ver mapa completo</a>
-            </div>
-        </section>
-        <section id="promocoes-destaque" style="background: linear-gradient(135deg, #0056b3, #003d82); color: white; text-align: center;">
-            <h2 style="color: white; border-bottom-color: #FFC300;">Promoções Especiais</h2>
-            <p style="font-size: 1.2rem; margin: 1.5rem 0;">Confira nossas ofertas exclusivas e pacotes imperdíveis!</p>
-            <div style="margin-top: 2rem;">
-                <a href="promocoes.html" style="display: inline-block; background-color: #FFC300; color: #0056b3; padding: 1rem 2rem; border-radius: 8px; font-weight: bold;">Ver Todas as Promoções</a>
-            </div>
-        </section>
-        <section id="link-prototipo">
-            <h2>Entrega Técnica</h2>
-            <p>Visualizar a demonstração do protótipo gráfico usando Canvas:</p>
-            <a href="prototipo.html" class="btn-primary">Acessar Protótipo Canvas</a>
-        </section>
-    </main>
-    <footer>
-        <div>
-            <section>
-                <h3>Sobre o Hotel Age</h3>
-                <p>Desde 1995 oferecendo a melhor experiência em hospitalidade. Conforto, luxo e atendimento personalizado na Zona Leste de São Paulo.</p>
-            </section>
-            <section>
-                <h3>Links Rápidos</h3>
-                <nav aria-label="Links do Rodapé">
-                    <ul>
-                        <li><a href="sobre.html">Sobre Nós</a></li>
-                        <li><a href="quartos.html">Acomodações</a></li>
-                        <li><a href="servicos.html">Serviços</a></li>
-                        <li><a href="galeria.html">Galeria</a></li>
-                        <li><a href="contato.html">Contato</a></li>
-                    </ul>
-                </nav>
-            </section>
-            <section>
-                <h3>Contato</h3>
-                <address>
-                    <p>Rua Palmeira de Leque - Av. São Miguel, 45</p>
-                    <p>Vila Robertina, São Paulo - SP</p>
-                    <p>CEP: 08061-430</p>
-                    <p>Tel: <a href="tel:+551129564153">(11) 2956-4153</a></p>
-                    <p>Email: <a href="mailto:contato@hotelage.com">contato@hotelage.com</a></p>
-                </address>
-            </section>
-        </div>
-        <hr>
-        <div>
-            <p>&copy; 2024 Hotel Age. Todos os direitos reservados.</p>
-        </div>
-    </footer>
-    <script src="js/script.js"></script>
+  <!-- Cabeçalho com logotipo e menu -->
+  <header>
+    <div class="logo">
+      <img src="img/logo hotel.png" alt="Logo Hotel Age">
+      <h1>Hotel Age</h1>
+    </div>
+
+    <!-- Botão de alternância de tema -->
+    <button id="btn-tema" aria-label="Alternar modo claro/escuro">🌙</button>
+
+    <!-- Menu de navegação principal -->
+    <nav aria-label="Menu Principal">
+      <ul>
+        <li><a href="index.html" aria-current="page">Início</a></li>
+        <li><a href="quartos.html">Quartos</a></li>
+        <li><a href="reservas.html">Reservas</a></li>
+        <li><a href="servicos.html">Serviços</a></li>
+        <li><a href="galeria.html">Galeria</a></li>
+        <li><a href="sobre.html">Sobre Nós</a></li>
+        <li><a href="localizacao.html">Localização</a></li>
+        <li><a href="guia-cidade.html">Guia da Cidade</a></li>
+        <li><a href="promocoes.html">Promoções</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Conteúdo principal -->
+  <main>
+    <section id="hero">
+      <h2>Bem-vindo ao Hotel Age</h2>
+      <p>Experimente conforto e hospitalidade em São Paulo.</p>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer>
+    <p>&copy; 2025 Hotel Age. Todos os direitos reservados.</p>
+  </footer>
 </body>
 </html>
