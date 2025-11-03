@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
     iniciarValidacaoFormulario();
     iniciarBotaoVoltarTopo();
     calcularPrecoReserva();
+    iniciarFormatacaoTelefone(); // Chamada para a nova função de formatação de telefone
+    iniciarMenuHamburguer();    // Chamada para a nova função do menu hambúrguer
     console.log('✓ Sistema Hotel Age carregado com sucesso!');
 });
 
@@ -17,8 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
    1. CAROUSEL (CARROSSEL DE IMAGENS)
    ======================================== */
 
-// Variável que guarda qual slide está ativo
+// Variável que guarda qual slide está ativo (global para as funções do carousel)
 let slideAtual = 0;
+let intervaloTroca; // Variável para controlar a troca automática
 
 // Função para criar o carousel na página
 function iniciarCarousel() {
@@ -28,59 +31,69 @@ function iniciarCarousel() {
     // Se não encontrar, para a função
     if (!hero) return;
 
-    // HTML do carousel
+    // Define os dados dos slides (imagens e textos)
+    const slidesData = [
+        { img: "img/Designer.png", alt: "Fachada do Hotel Age", title: "Bem-vindo ao Hotel Age", text: "Experimente o melhor da hospitalidade brasileira" },
+        { img: "img/Quarto.png", alt: "Quarto confortável", title: "Quartos Confortáveis", text: "Acomodações pensadas para seu bem-estar" },
+        { img: "img/Foto1.jpeg", alt: "Lobby elegante", title: "Ambiente Sofisticado", text: "Elegância em cada detalhe" },
+        { img: "img/Foto9.jpeg", alt: "Restaurante", title: "Gastronomia de Excelência", text: "Sabores que encantam" }
+    ];
+
+    // Constrói o HTML do carousel dinamicamente
+    let carouselSlidesHTML = '';
+    let carouselIndicatorsHTML = '';
+
+    slidesData.forEach((data, index) => {
+        carouselSlidesHTML += `
+            <div class="carousel-slide ${index === 0 ? 'active' : ''}">
+                <img src="${data.img}" alt="${data.alt}">
+                <div class="carousel-content">
+                    <h2>${data.title}</h2>
+                    <p>${data.text}</p>
+                </div>
+            </div>`;
+        carouselIndicatorsHTML += `<span class="indicator ${index === 0 ? 'active' : ''}" data-slide-index="${index}"></span>`;
+    });
+
     const carouselHTML = `
-    <div class="carousel-container">
-        <div class="carousel-slide active">
-            <img src="img/Designer.png" alt="Fachada do Hotel Age">
-            <div class="carousel-content">
-                <h2>Bem-vindo ao Hotel Age</h2>
-                <p>Experimente o melhor da hospitalidade brasileira</p>
+        <div class="carousel-container">
+            ${carouselSlidesHTML}
+            <button class="carousel-btn prev">&#10094;</button>
+            <button class="carousel-btn next">&#10095;</button>
+            <div class="carousel-indicators">
+                ${carouselIndicatorsHTML}
             </div>
-        </div>
-        <div class="carousel-slide">
-            <img src="img/Quarto.png" alt="Quarto confortável">
-            <div class="carousel-content">
-                <h2>Quartos Confortáveis</h2>
-                <p>Acomodações pensadas para seu bem-estar</p>
-            </div>
-        </div>
-        <div class="carousel-slide">
-            <img src="img/Foto1.jpeg" alt="Lobby elegante">
-            <div class="carousel-content">
-                <h2>Ambiente Sofisticado</h2>
-                <p>Elegância em cada detalhe</p>
-            </div>
-        </div>
-        <div class="carousel-slide">
-            <img src="img/Foto9.jpeg" alt="Restaurante">
-            <div class="carousel-content">
-                <h2>Gastronomia de Excelência</h2>
-                <p>Sabores que encantam</p>
-            </div>
-        </div>
-        <button class="carousel-btn prev" onclick="mudarSlide(-1)">&#10094;</button>
-        <button class="carousel-btn next" onclick="mudarSlide(1)">&#10095;</button>
-        <div class="carousel-indicators">
-            <span class="indicator active" onclick="irParaSlide(0)"></span>
-            <span class="indicator" onclick="irParaSlide(1)"></span>
-            <span class="indicator" onclick="irParaSlide(2)"></span>
-            <span class="indicator" onclick="irParaSlide(3)"></span>
-        </div>
-    </div>`;
+        </div>`;
 
     // Insere o carousel no HTML
     hero.innerHTML = carouselHTML;
 
+    // Adiciona event listeners aos botões e indicadores
+    document.querySelector('.carousel-btn.next').addEventListener('click', () => mudarSlide(1));
+    document.querySelector('.carousel-btn.prev').addEventListener('click', () => mudarSlide(-1));
+    
+    document.querySelectorAll('.carousel-indicators .indicator').forEach(indicator => {
+        indicator.addEventListener('click', (e) => {
+            irParaSlide(parseInt(e.target.dataset.slideIndex));
+        });
+    });
+
     // Inicia a troca automática de slides
     iniciarTrocaAutomatica();
+
+    // Pausa e retoma o autoplay ao passar o mouse
+    const carouselContainer = document.querySelector('.carousel-container');
+    if (carouselContainer) {
+        carouselContainer.addEventListener('mouseenter', pararTrocaAutomatica);
+        carouselContainer.addEventListener('mouseleave', iniciarTrocaAutomatica);
+    }
 }
 
 // Função para mudar de slide (quando clica nas setas)
 function mudarSlide(direcao) {
     // Busca todos os slides
     const slides = document.querySelectorAll('.carousel-slide');
-    const indicadores = document.querySelectorAll('.indicator');
+    const indicadores = document.querySelectorAll('.carousel-indicators .indicator');
     
     // Se não encontrar slides, para a função
     if (!slides.length) return;
@@ -109,7 +122,7 @@ function mudarSlide(direcao) {
 // Função para ir direto para um slide específico (quando clica nos indicadores)
 function irParaSlide(numero) {
     const slides = document.querySelectorAll('.carousel-slide');
-    const indicadores = document.querySelectorAll('.indicator');
+    const indicadores = document.querySelectorAll('.carousel-indicators .indicator');
     
     if (!slides.length) return;
 
@@ -125,19 +138,55 @@ function irParaSlide(numero) {
     indicadores[slideAtual].classList.add('active');
 }
 
-// Variável que controla a troca automática
-let intervaloTroca;
-
 // Função para iniciar a troca automática de slides
 function iniciarTrocaAutomatica() {
+    pararTrocaAutomatica(); // Garante que apenas um intervalo esteja ativo
     // A cada 5 segundos (5000 milissegundos), muda para o próximo slide
     intervaloTroca = setInterval(function() {
         mudarSlide(1);
     }, 5000);
 }
 
+// Função para parar a troca automática
+function pararTrocaAutomatica() {
+    clearInterval(intervaloTroca);
+}
+
+
 /* ========================================
-   2. VALIDAÇÃO DE FORMULÁRIOS
+   2. FUNCIONALIDADE DO MENU HAMBÚRGUER
+   ======================================== */
+function iniciarMenuHamburguer() {
+    const hamburgerBtn = document.querySelector('.hamburger-menu');
+    const nav = document.querySelector('nav'); // Seleciona a tag <nav>
+
+    if (hamburgerBtn && nav) {
+        hamburgerBtn.addEventListener('click', () => {
+            nav.classList.toggle('active'); // Adiciona/remove a classe 'active' à tag <nav>
+            hamburgerBtn.classList.toggle('open'); // Adiciona/remove a classe 'open' ao botão para animá-lo
+        });
+
+        // Fechar o menu se clicar fora dele ou em um link (opcional, mas bom para UX)
+        document.addEventListener('click', (event) => {
+            if (nav.classList.contains('active') && !nav.contains(event.target) && !hamburgerBtn.contains(event.target)) {
+                nav.classList.remove('active');
+                hamburgerBtn.classList.remove('open');
+            }
+        });
+
+        // Fechar o menu ao clicar em um item da lista de navegação (para single-page ou âncoras)
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                hamburgerBtn.classList.remove('open');
+            });
+        });
+    }
+}
+
+
+/* ========================================
+   3. VALIDAÇÃO DE FORMULÁRIOS
    ======================================== */
 
 function iniciarValidacaoFormulario() {
@@ -207,22 +256,33 @@ function validarCampo(campo) {
 
     // 3. Valida telefone
     if (campo.type === 'tel' && campo.value) {
-        // Expressão regular para validar telefone brasileiro
+        // Expressão regular para validar telefone brasileiro (com ou sem DDD, com 8 ou 9 dígitos)
         const telefoneValido = /^\(\d{2}\)\s?\d{4,5}-?\d{4}$/;
         if (!telefoneValido.test(campo.value)) {
-            mostrarErro(campo, 'Formato: (11) 99999-9999');
+            mostrarErro(campo, 'Formato: (11) 99999-9999 ou (11) 9999-9999');
             return false;
         }
     }
 
-    // 4. Valida data
+    // 4. Valida data (para check-in/check-out)
     if (campo.type === 'date' && campo.value) {
         const dataSelecionada = new Date(campo.value);
         const hoje = new Date();
         hoje.setHours(0, 0, 0, 0);
         
-        if (dataSelecionada < hoje) {
-            mostrarErro(campo, 'A data deve ser futura');
+        // Se for um campo de check-out, verifica também se é depois do check-in
+        if (campo.id === 'checkout') {
+            const checkinField = document.getElementById('checkin');
+            if (checkinField && checkinField.value) {
+                const dataCheckin = new Date(checkinField.value);
+                dataCheckin.setHours(0, 0, 0, 0);
+                if (dataSelecionada <= dataCheckin) {
+                    mostrarErro(campo, 'A data de checkout deve ser posterior à data de checkin.');
+                    return false;
+                }
+            }
+        } else if (dataSelecionada < hoje) { // Para check-in, a data deve ser futura ou hoje
+            mostrarErro(campo, 'A data deve ser futura ou a data de hoje.');
             return false;
         }
     }
@@ -242,7 +302,11 @@ function mostrarErro(campo, mensagem) {
     divErro.textContent = mensagem;
     
     // Insere a mensagem após o campo
-    campo.parentNode.appendChild(divErro);
+    // Verifica se já existe uma mensagem de erro para evitar duplicidade
+    const erroExistente = campo.parentNode.querySelector('.error-message');
+    if (!erroExistente) {
+        campo.parentNode.appendChild(divErro);
+    }
 }
 
 // Função para remover mensagem de erro
@@ -263,8 +327,10 @@ function mostrarMensagem(texto, tipo) {
 
     // Cria a nova mensagem
     const mensagem = document.createElement('div');
-    mensagem.className = 'notificacao';
+    mensagem.className = `notificacao ${tipo}`; // Adiciona classe 'sucesso' ou 'erro'
     mensagem.textContent = texto;
+    
+    // Estilos inline (apenas para exemplo, idealmente no CSS)
     mensagem.style.position = 'fixed';
     mensagem.style.top = '20px';
     mensagem.style.right = '20px';
@@ -273,25 +339,32 @@ function mostrarMensagem(texto, tipo) {
     mensagem.style.color = 'white';
     mensagem.style.fontWeight = 'bold';
     mensagem.style.zIndex = '9999';
+    mensagem.style.opacity = '0'; // Começa transparente para animar
+    mensagem.style.transition = 'opacity 0.5s ease-in-out';
 
-    // Define a cor baseada no tipo
+
+    // Define a cor baseada no tipo (idealmente no CSS via classe)
     if (tipo === 'sucesso') {
         mensagem.style.backgroundColor = '#4caf50';
     } else {
         mensagem.style.backgroundColor = '#d32f2f';
     }
 
-    // Adiciona ao body
+    // Adiciona ao body e anima
     document.body.appendChild(mensagem);
+    setTimeout(() => {
+        mensagem.style.opacity = '1';
+    }, 10); // Pequeno atraso para a transição funcionar
 
     // Remove após 5 segundos
     setTimeout(function() {
-        mensagem.remove();
+        mensagem.style.opacity = '0'; // Anima o fade out
+        mensagem.addEventListener('transitionend', () => mensagem.remove()); // Remove após a transição
     }, 5000);
 }
 
 /* ========================================
-   3. BOTÃO VOLTAR AO TOPO
+   4. BOTÃO VOLTAR AO TOPO
    ======================================== */
 
 function iniciarBotaoVoltarTopo() {
@@ -300,6 +373,26 @@ function iniciarBotaoVoltarTopo() {
     botao.id = 'backToTop';
     botao.innerHTML = '↑';
     botao.title = 'Voltar ao topo';
+    // Estilos para o botão (idealmente no CSS)
+    botao.style.display = 'none'; // Esconde por padrão
+    botao.style.position = 'fixed';
+    botao.style.bottom = '20px';
+    botao.style.right = '20px';
+    botao.style.backgroundColor = '#0056b3';
+    botao.style.color = 'white';
+    botao.style.border = 'none';
+    botao.style.borderRadius = '50%';
+    botao.style.width = '50px';
+    botao.style.height = '50px';
+    botao.style.fontSize = '1.5rem';
+    botao.style.cursor = 'pointer';
+    botao.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+    botao.style.zIndex = '999';
+    botao.style.transition = 'background-color 0.3s ease, transform 0.3s ease';
+
+    // Hover effect
+    botao.onmouseover = () => { botao.style.backgroundColor = '#003d82'; botao.style.transform = 'translateY(-2px)'; };
+    botao.onmouseout = () => { botao.style.backgroundColor = '#0056b3'; botao.style.transform = 'translateY(0)'; };
 
     // Quando clicar no botão
     botao.addEventListener('click', function() {
@@ -324,179 +417,120 @@ function iniciarBotaoVoltarTopo() {
 }
 
 /* ========================================
-   4. CÁLCULO DE PREÇO DA RESERVA
+   5. CÁLCULO DE PREÇO DA RESERVA
    ======================================== */
 
 function calcularPrecoReserva() {
-    // Busca o formulário de reservas
-    const form = document.querySelector('#formulario-reserva form');
-    if (!form) return;
+    // Busca o formulário de reservas (usando o ID da section para ser mais específico)
+    const formReserva = document.querySelector('#formulario-reserva form');
+    if (!formReserva) return; // Se não estiver na página de reservas, sai
 
     // Busca os campos necessários
-    const tipoQuarto = document.getElementById('tipo-quarto');
-    const checkin = document.getElementById('checkin');
-    const checkout = document.getElementById('checkout');
+    const tipoQuartoSelect = formReserva.querySelector('#tipo-quarto');
+    const checkinInput = formReserva.querySelector('#check-in'); // Ajustado para 'check-in'
+    const checkoutInput = formReserva.querySelector('#check-out'); // Ajustado para 'check-out'
+    const resumoContainer = document.getElementById('resumo-reserva'); // Container onde o resumo será exibido
 
     // Se não encontrar os campos, para a função
-    if (!tipoQuarto || !checkin || !checkout) return;
+    if (!tipoQuartoSelect || !checkinInput || !checkoutInput || !resumoContainer) {
+        console.warn('Campos de cálculo de reserva não encontrados. Função desativada.');
+        return;
+    }
 
     // Tabela de preços por tipo de quarto
-    // ***** AJUSTE FEITO AQUI *****
     const precos = {
-        'simples': 200,
+        'solteiro': 200, // Exemplo de preço, ajuste conforme seu HTML
         'duplo': 300,
-        'triplo': 400,
+        'familia': 450,
         'suite': 600
     };
-    // *****************************
 
     // Função que faz o cálculo
     function calcular() {
         // Pega os valores dos campos
-        const quarto = tipoQuarto.value;
-        const dataCheckin = new Date(checkin.value);
-        const dataCheckout = new Date(checkout.value);
+        const quartoSelecionado = tipoQuartoSelect.value;
+        const dataCheckin = new Date(checkinInput.value);
+        const dataCheckout = new Date(checkoutInput.value);
 
-        // Se todos os campos estiverem preenchidos e checkout for depois do checkin
-        if (quarto && checkin.value && checkout.value && dataCheckout > dataCheckin) {
+        // Validações básicas (ajustadas para usar a função validarCampo)
+        const isCheckinValid = validarCampo(checkinInput);
+        const isCheckoutValid = validarCampo(checkoutInput);
+        const isQuartoValid = quartoSelecionado !== ''; // Assumindo que o primeiro option é vazio ou "Selecione"
+
+        if (isCheckinValid && isCheckoutValid && isQuartoValid && dataCheckout > dataCheckin) {
             // Calcula quantos dias
             const diferencaMilissegundos = dataCheckout - dataCheckin;
             const dias = Math.ceil(diferencaMilissegundos / (1000 * 60 * 60 * 24));
             
             // Pega o preço do quarto escolhido
-            const precoPorNoite = precos[quarto] || 0;
+            const precoPorNoite = precos[quartoSelecionado] || 0;
             
             // Calcula o total
             const total = dias * precoPorNoite;
 
-            // Mostra o resumo
-            let resumo = document.getElementById('resumo');
-            
-            // Se não existe a seção de resumo, cria
-            if (!resumo) {
-                resumo = document.createElement('section');
-                resumo.id = 'resumo';
-                form.appendChild(resumo);
-            }
-
             // Atualiza o conteúdo do resumo
-            resumo.innerHTML = `
+            resumoContainer.innerHTML = `
                 <h3>Resumo da Reserva</h3>
-                <p><strong>Tipo de Quarto:</strong> ${quarto.charAt(0).toUpperCase() + quarto.slice(1)}</p>
+                <p><strong>Tipo de Quarto:</strong> ${quartoSelecionado.charAt(0).toUpperCase() + quartoSelecionado.slice(1)}</p>
                 <p><strong>Número de diárias:</strong> ${dias}</p>
-                <p><strong>Preço por noite:</strong> R$ ${precoPorNoite.toFixed(2)}</p>
-                <p style="font-size: 20px; color: #0056b3;"><strong>Total:</strong> R$ ${total.toFixed(2)}</p>
+                <p><strong>Preço por noite:</strong> R$ ${precoPorNoite.toFixed(2).replace('.', ',')}</p>
+                <p style="font-size: 20px; color: #0056b3;"><strong>Total:</strong> R$ ${total.toFixed(2).replace('.', ',')}</p>
             `;
-            resumo.style.backgroundColor = '#f0f8ff';
-            resumo.style.padding = '20px';
-            resumo.style.borderRadius = '8px';
-            resumo.style.marginTop = '20px';
+            resumoContainer.style.backgroundColor = '#f0f8ff';
+            resumoContainer.style.padding = '20px';
+            resumoContainer.style.borderRadius = '8px';
+            resumoContainer.style.marginTop = '20px';
+            resumoContainer.style.border = '1px solid #e0e0e0';
+
+        } else {
+            // Limpa o resumo se as condições não forem atendidas
+            resumoContainer.innerHTML = '';
+            resumoContainer.style = ''; // Remove estilos inline
         }
     }
 
     // Adiciona o cálculo quando os campos mudarem
-    tipoQuarto.addEventListener('change', calcular);
-    checkin.addEventListener('change', calcular);
-    checkout.addEventListener('change', calcular);
+    tipoQuartoSelect.addEventListener('change', calcular);
+    checkinInput.addEventListener('change', () => { validarCampo(checkinInput); calcular(); });
+    checkoutInput.addEventListener('change', () => { validarCampo(checkoutInput); calcular(); });
+    
+    // Dispara um cálculo inicial caso os campos já venham preenchidos (ex: recarregou a página)
+    calcular();
 }
-document.addEventListener('DOMContentLoaded', function() {
-    // Para o Carousel (se você ainda o tiver e quiser mantê-lo)
-    const carouselContainer = document.querySelector('.carousel-container');
-    if (carouselContainer) {
-        const slides = document.querySelectorAll('.carousel-slide');
-        const indicatorsContainer = document.querySelector('.carousel-indicators');
-        let currentSlide = 0;
-
-        // Cria os indicadores
-        slides.forEach((_, index) => {
-            const indicator = document.createElement('div');
-            indicator.classList.add('indicator');
-            if (index === 0) indicator.classList.add('active');
-            indicator.addEventListener('click', () => goToSlide(index));
-            indicatorsContainer.appendChild(indicator);
-        });
-        const indicators = document.querySelectorAll('.indicator');
-
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.classList.remove('active');
-                if (i === index) slide.classList.add('active');
-            });
-            indicators.forEach((indicator, i) => {
-                indicator.classList.remove('active');
-                if (i === index) indicator.classList.add('active');
-            });
-        }
-
-        function goToSlide(index) {
-            currentSlide = (index + slides.length) % slides.length;
-            showSlide(currentSlide);
-        }
-
-        document.querySelector('.carousel-btn.next').addEventListener('click', () => {
-            goToSlide(currentSlide + 1);
-        });
-
-        document.querySelector('.carousel-btn.prev').addEventListener('click', () => {
-            goToSlide(currentSlide - 1);
-        });
-
-        // Autoplay
-        let slideInterval = setInterval(() => goToSlide(currentSlide + 1), 5000); // Muda a cada 5 segundos
-
-        carouselContainer.addEventListener('mouseenter', () => clearInterval(slideInterval));
-        carouselContainer.addEventListener('mouseleave', () => {
-            slideInterval = setInterval(() => goToSlide(currentSlide + 1), 5000);
-        });
-
-        showSlide(currentSlide);
-    }
-
-
-    // --- Funcionalidade do Menu Hambúrguer ---
-    const hamburgerBtn = document.querySelector('.hamburger-menu');
-    const navList = document.querySelector('.nav-list');
-
-    if (hamburgerBtn && navList) {
-        hamburgerBtn.addEventListener('click', () => {
-            navList.classList.toggle('active'); // Adiciona/remove a classe 'active' ao menu
-            hamburgerBtn.classList.toggle('open'); // Adiciona/remove a classe 'open' ao botão para animá-lo
-        });
-    }
-
-});
 
 /* ========================================
-   5. FORMATAÇÃO AUTOMÁTICA DE TELEFONE
+   6. FORMATAÇÃO AUTOMÁTICA DE TELEFONE
    ======================================== */
 
-// Busca todos os campos de telefone
-const camposTelefone = document.querySelectorAll('input[type="tel"]');
+function iniciarFormatacaoTelefone() {
+    // Busca todos os campos de telefone
+    const camposTelefone = document.querySelectorAll('input[type="tel"]');
 
-// Para cada campo de telefone
-camposTelefone.forEach(function(campo) {
-    // Quando digitar algo
-    campo.addEventListener('input', function(e) {
-        // Remove tudo que não é número
-        let valor = e.target.value.replace(/\D/g, '');
-        
-        // Formata o telefone enquanto digita
-        if (valor.length > 0) {
-            if (valor.length <= 2) {
-                valor = '(' + valor;
-            } else if (valor.length <= 6) {
-                valor = '(' + valor.slice(0, 2) + ') ' + valor.slice(2);
-            } else if (valor.length <= 10) {
-                valor = '(' + valor.slice(0, 2) + ') ' + valor.slice(2, 6) + '-' + valor.slice(6);
-            } else {
-                valor = '(' + valor.slice(0, 2) + ') ' + valor.slice(2, 7) + '-' + valor.slice(7, 11);
+    // Para cada campo de telefone
+    camposTelefone.forEach(function(campo) {
+        // Quando digitar algo
+        campo.addEventListener('input', function(e) {
+            // Remove tudo que não é número
+            let valor = e.target.value.replace(/\D/g, '');
+            
+            // Formata o telefone enquanto digita
+            if (valor.length > 0) {
+                if (valor.length <= 2) {
+                    valor = '(' + valor;
+                } else if (valor.length <= 6) {
+                    valor = '(' + valor.slice(0, 2) + ') ' + valor.slice(2);
+                } else if (valor.length <= 10) { // 9xxxx-xxxx ou 4xxxx-xxxx
+                    valor = '(' + valor.slice(0, 2) + ') ' + valor.slice(2, 6) + '-' + valor.slice(6);
+                } else { // (DD) 9XXXX-XXXX
+                    valor = '(' + valor.slice(0, 2) + ') ' + valor.slice(2, 7) + '-' + valor.slice(7, 11);
+                }
             }
-        }
-        
-        // Atualiza o valor do campo
-        e.target.value = valor;
+            
+            // Atualiza o valor do campo
+            e.target.value = valor;
+        });
     });
-});
+}
 
 /* ========================================
    FIM DO SCRIPT
@@ -504,12 +538,8 @@ camposTelefone.forEach(function(campo) {
 
 console.log('✓ Todas as funções foram carregadas:');
 console.log('  - Carousel');
+console.log('  - Menu Hambúrguer');
 console.log('  - Validação de Formulários');
 console.log('  - Botão Voltar ao Topo');
 console.log('  - Cálculo de Preço');
 console.log('  - Formatação de Telefone');
-
-
-
-
-
